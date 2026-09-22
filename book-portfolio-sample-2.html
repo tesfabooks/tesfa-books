@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yeabsira Henok · Author and Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #E9EEF0;
+    --ink: #14213D;
+    --teal: #0F4C4A;
+    --daisy: #F2B21A;
+    --line: #C3CFD5;
+    --white: #FFFFFF;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.15rem;
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--daisy); outline-offset: 3px; }
+  .wrap { width: min(1040px, 100% - 2.5rem); margin-inline: auto; }
+
+  /* header */
+  header .wrap { display: flex; justify-content: space-between; align-items: center; padding-block: 1.25rem; }
+  .brand { font-family: var(--display); font-weight: 800; text-decoration: none; }
+  nav { display: flex; gap: 1.5rem; }
+  nav a { text-decoration: none; }
+  nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* hero */
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding-block: 3rem 5rem;
+  }
+  h1, h2 { font-family: var(--display); font-weight: 800; line-height: 1.02; margin: 0; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); }
+  h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+  .lede { max-width: 32rem; margin: 1.5rem 0 2rem; }
+  .btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--white);
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.9rem 1.4rem;
+    border: 0;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--teal); }
+  .btn.daisy { background: var(--daisy); color: var(--ink); }
+  .btn.daisy:hover { background: #ffc73d; }
+
+  /* the book */
+  .stage { display: grid; place-items: center; padding: 1rem; }
+  .book {
+    position: relative;
+    width: min(270px, 68vw);
+    aspect-ratio: 2 / 3;
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 3px 10px 10px 3px;
+    padding: 1.6rem 1.4rem 1.4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: rotate(-3deg);
+    box-shadow: 16px 18px 0 rgba(20, 33, 61, 0.14);
+  }
+  .book::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 14px;
+    background: rgba(0, 0, 0, 0.28);
+    border-radius: 3px 0 0 3px;
+  }
+  .book .by { font-family: var(--display); font-size: 0.85rem; }
+  .book .title { font-family: var(--display); font-weight: 800; font-size: 2rem; line-height: 1; }
+  .book .sun {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: radial-gradient(circle, var(--daisy) 0 38%, transparent 40%),
+                repeating-conic-gradient(var(--daisy) 0 10deg, transparent 10deg 30deg);
+  }
+
+  /* buy section */
+  .section { padding-block: 4rem; border-top: 1px solid var(--line); }
+  .buy { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2rem; }
+  .price { font-family: var(--display); font-weight: 800; font-size: 2.4rem; margin: 0.5rem 0; }
+  .meta { margin: 0; }
+  ol.steps { padding-left: 1.3rem; margin: 1.5rem 0 0; }
+  ol.steps li { margin-bottom: 0.6rem; padding-left: 0.3rem; }
+
+  .panel { background: var(--white); border: 1px solid var(--line); border-radius: 10px; padding: 1.5rem; }
+  fieldset { border: 0; margin: 0 0 1.25rem; padding: 0; display: flex; gap: 0.5rem; }
+  legend { font-family: var(--display); font-weight: 500; margin-bottom: 0.6rem; padding: 0; }
+  .choice { position: relative; flex: 1; }
+  .choice input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .choice span {
+    display: block; text-align: center; padding: 0.7rem;
+    border: 2px solid var(--line); border-radius: 6px;
+    font-family: var(--display); font-weight: 500;
+  }
+  .choice input:checked + span { border-color: var(--ink); background: var(--ink); color: var(--white); }
+  .choice input:focus-visible + span { outline: 3px solid var(--daisy); outline-offset: 3px; }
+
+  .detail { margin: 0 0 1.25rem; }
+  .detail dt { font-size: 0.95rem; opacity: 0.75; }
+  .detail dd { margin: 0; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+  .number { font-family: var(--display); font-weight: 800; font-size: 1.6rem; letter-spacing: 0.02em; }
+  .copy {
+    font: inherit; font-family: var(--display); font-size: 0.9rem;
+    background: transparent; border: 2px solid var(--ink); border-radius: 6px;
+    padding: 0.25rem 0.7rem; cursor: pointer; color: var(--ink);
+  }
+  .copy:hover { background: var(--paper); }
+  .note { font-size: 0.95rem; margin: 1rem 0 0; opacity: 0.8; }
+
+  @media (max-width: 760px) {
+    .hero .wrap, .buy { grid-template-columns: 1fr; gap: 2rem; }
+    .hero .wrap { padding-block: 1.5rem 3rem; }
+    .stage { order: -1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top">Yeabsira Henok</a>
+    <nav aria-label="Main">
+      <a href="#book">Book</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>I write books and build websites.</h1>
+        <p class="lede">I'm Yeabsira, a writer and web developer. My first book is available now. Pay with Telebirr or CBE and get your copy on Telegram.</p>
+        <a class="btn daisy" href="#book">Buy the book</a>
+      </div>
+      <div class="stage">
+        <div class="book" role="img" aria-label="Book cover: Yeab Yeab by Yeabsira Henok">
+          <span class="by">Yeabsira Henok</span>
+          <span class="title">Yeab Yeab</span>
+          <span class="sun"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="book">
+    <div class="wrap">
+      <h2>Yeab Yeab</h2>
+      <div class="buy">
+        <div>
+          <p class="price">350 ETB</p>
+          <p class="meta">PDF · 120 pages · Amharic and English</p>
+          <p>Write two or three sentences here about what the book is about and who should read it.</p>
+          <ol class="steps">
+            <li>Pay the price with Telebirr or CBE.</li>
+            <li>Tap the Telegram button and send your payment screenshot.</li>
+            <li>I confirm the payment and send you the book.</li>
+          </ol>
+        </div>
+
+        <div class="panel">
+          <fieldset>
+            <legend>Pay with</legend>
+            <label class="choice"><input type="radio" name="method" value="telebirr" checked><span>Telebirr</span></label>
+            <label class="choice"><input type="radio" name="method" value="cbe"><span>CBE</span></label>
+          </fieldset>
+
+          <dl class="detail">
+            <dt id="numLabel">Telebirr number</dt>
+            <dd><span class="number" id="num">09XX XXX XXX</span> <button class="copy" type="button" id="copyBtn">Copy</button></dd>
+          </dl>
+          <dl class="detail">
+            <dt>Account name</dt>
+            <dd id="acctName">Yeabsira Henok</dd>
+          </dl>
+
+          <a class="btn" id="order" href="#" target="_blank" rel="noopener">Send payment proof on Telegram</a>
+          <p class="note">Your message opens with the book and payment method already filled in. Add your transaction ID, attach your payment screenshot in Telegram, and send.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<script>
+  // Edit these values
+  var TELEGRAM = "Yeabsirahenok";
+  var BOOK = "Yeab Yeab";
+  var PRICE = "350 ETB";
+  var METHODS = {
+    telebirr: { label: "Telebirr number", short: "Telebirr", value: "09XX XXX XXX" },
+    cbe:      { label: "CBE account number", short: "CBE", value: "1000XXXXXXXXX" }
+  };
+
+  var current = "telebirr";
+  var num = document.getElementById("num");
+  var numLabel = document.getElementById("numLabel");
+  var order = document.getElementById("order");
+  var copyBtn = document.getElementById("copyBtn");
+
+  function render() {
+    var m = METHODS[current];
+    numLabel.textContent = m.label;
+    num.textContent = m.value;
+    var msg = 'Hello, I want to buy "' + BOOK + '" (' + PRICE + '). I paid with ' + m.short + '. My transaction ID is: (write it here). My payment screenshot is attached below.';
+    order.href = "https://t.me/" + TELEGRAM + "?text=" + encodeURIComponent(msg);
+  }
+
+  document.querySelectorAll('input[name="method"]').forEach(function (r) {
+    r.addEventListener("change", function () { current = r.value; render(); });
+  });
+
+  copyBtn.addEventListener("click", function () {
+    var text = METHODS[current].value.replace(/\s/g, "");
+    function done() {
+      copyBtn.textContent = "Copied";
+      setTimeout(function () { copyBtn.textContent = "Copy"; }, 1500);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  });
+
+  function fallback(text, done) {
+    var t = document.createElement("textarea");
+    t.value = text; document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); done(); } catch (e) {}
+    document.body.removeChild(t);
+  }
+
+  render();
+</script>
+</body>
+</html>
